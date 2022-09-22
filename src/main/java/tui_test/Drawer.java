@@ -2,16 +2,25 @@ package tui_test;
 
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-
+import java.util.concurrent.TimeUnit;
 import java.io.IOException;
 
 public class Drawer {
     int terminalRows, terminalColumns;
     Terminal terminal;
 
-    void setPoint(int x, int y) throws IOException {
-        terminal.setCursorPosition(x, y);
-        terminal.putCharacter('X');
+    boolean setPoint(int x, int y, boolean sleep) throws IOException, InterruptedException {
+        if (sleep) {
+            TimeUnit.MILLISECONDS.sleep(100);
+        }
+        if (x >= 1 && x <= terminalColumns && y >= 1 && y <= terminalRows) {
+            terminal.setCursorPosition(x * 2, terminalRows - y);
+            terminal.putCharacter('X');
+            terminal.flush();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     void print() throws IOException {
@@ -38,9 +47,5 @@ public class Drawer {
             terminal.setCursorPosition(i, terminalRows);
             terminal.putCharacter('_');
         }
-
-        // terminal.setCursorPosition(5, 0);
-        // terminal.putCharacter('X');
-
     }
 }
