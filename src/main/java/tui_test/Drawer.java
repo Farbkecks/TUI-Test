@@ -2,24 +2,38 @@ package tui_test;
 
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import java.util.concurrent.TimeUnit;
 import java.io.IOException;
 
 public class Drawer {
     int terminalRows, terminalColumns;
     Terminal terminal;
+    char sysmble = 'X';
 
-    boolean setPoint(int x, int y, boolean sleep) throws IOException, InterruptedException {
-        if (sleep) {
-            TimeUnit.MILLISECONDS.sleep(100);
-        }
-        if (x >= 1 && x <= terminalColumns && y >= 1 && y <= terminalRows) {
-            terminal.setCursorPosition(x * 2, terminalRows - y);
-            terminal.putCharacter('X');
+    void setPoint(Coordinate2D pointNew, Coordinate2D pointOld) throws IOException, InterruptedException {
+        if (pointNew.x >= 1 && pointNew.x <= terminalColumns && pointNew.y >= 1 && pointNew.y <= terminalRows) {
+            int dx = pointNew.x - pointOld.x;
+            int dy = pointNew.y - pointOld.y;
+
+            if (dy == 0 || dx == 0) {
+                return;
+            }
+
+            int steps = Math.abs(dx) > Math.abs(dy) ? Math.abs(dx) : Math.abs(dy);
+
+            double xinc = dx / steps;
+            double yinc = dy / steps;
+
+            double x = pointOld.x;
+            double y = pointOld.y;
+
+            for (int i = 0; i < steps; i++) {
+                terminal.setCursorPosition((int) Math.round(x) * 2, terminalRows - (int) Math.round(y));
+                terminal.putCharacter(sysmble);
+                x += xinc;
+                y += yinc;
+            }
+
             terminal.flush();
-            return true;
-        } else {
-            return false;
         }
     }
 
