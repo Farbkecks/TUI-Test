@@ -28,8 +28,6 @@ public class Drawer {
                 x += xinc;
                 y += yinc;
             }
-            terminal.setCursorPosition(pointNew.x * 3 + 1, terminalRows - pointNew.y);
-            terminal.putCharacter(sysmbleMain);
             terminal.flush();
         }
     }
