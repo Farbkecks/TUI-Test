@@ -16,6 +16,7 @@ public class Drawer {
         // look if the point is on the screen
         if (pointNew.x >= 0 && pointNew.x <= terminalColumns / 3 - 1 && pointNew.y >= 0
                 && pointNew.y <= terminalRows - 1) {
+
             int dx = pointNew.x - pointOld.x;
             int dy = pointNew.y - pointOld.y;
 
@@ -33,6 +34,7 @@ public class Drawer {
                 y += yinc;
             }
             terminal.flush();
+            // save the old Point to draw the line
             pointOld = pointNew;
         }
     }
@@ -44,7 +46,6 @@ public class Drawer {
     }
 
     Drawer() throws IOException {
-        // save the old Point to draw the line
         pointOld = new Coordinate2D(0, 0);
 
         DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
