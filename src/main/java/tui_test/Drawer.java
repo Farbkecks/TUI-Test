@@ -9,8 +9,9 @@ public class Drawer {
     Terminal terminal;
     char sysmble = 'X';
     char sysmbleMain = 'O';
+    Coordinate2D pointOld;
 
-    void drawBetweenTwoPoints(Coordinate2D pointNew, Coordinate2D pointOld) throws IOException, InterruptedException {
+    void drawBetweenTwoPoints(Coordinate2D pointNew) throws IOException, InterruptedException {
         if (pointNew.x >= 0 && pointNew.x <= terminalColumns / 3 - 1 && pointNew.y >= 0
                 && pointNew.y <= terminalRows - 1) {
             int dx = pointNew.x - pointOld.x;
@@ -30,6 +31,7 @@ public class Drawer {
                 y += yinc;
             }
             terminal.flush();
+            pointOld = pointNew;
         }
     }
 
@@ -40,6 +42,7 @@ public class Drawer {
     }
 
     Drawer() throws IOException {
+        pointOld = new Coordinate2D(0, 0);
         DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
         terminal = defaultTerminalFactory.createTerminal();
         var size = terminal.getTerminalSize();
