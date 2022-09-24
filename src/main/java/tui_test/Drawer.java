@@ -11,7 +11,9 @@ public class Drawer {
     char sysmbleMain = 'O';
     Coordinate2D pointOld;
 
+    // https://www.geeksforgeeks.org/dda-line-generation-algorithm-computer-graphics/
     void drawBetweenTwoPoints(Coordinate2D pointNew) throws IOException, InterruptedException {
+        // look if the point is on the screen
         if (pointNew.x >= 0 && pointNew.x <= terminalColumns / 3 - 1 && pointNew.y >= 0
                 && pointNew.y <= terminalRows - 1) {
             int dx = pointNew.x - pointOld.x;
@@ -35,22 +37,29 @@ public class Drawer {
         }
     }
 
+    // put cursor below the graph
     void close() throws IOException {
         terminal.setCursorPosition(terminalColumns, terminalRows);
         System.out.println();
     }
 
     Drawer() throws IOException {
+        // save the old Point to draw the line
         pointOld = new Coordinate2D(0, 0);
+
         DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
         terminal = defaultTerminalFactory.createTerminal();
         var size = terminal.getTerminalSize();
+
+        // make space for the Graph
         for (int i = 0; i < size.getRows(); i++) {
             System.out.println();
         }
+        // get terminal size
         terminalRows = size.getRows() - 4;
         terminalColumns = size.getColumns() - 10;
 
+        // draw horizontally axis
         for (int i = 0; i < terminalRows; i++) {
             terminal.setCursorPosition(0, i);
             if (terminalRows - i >= 0 && terminalRows - i <= 10) {
@@ -58,6 +67,7 @@ public class Drawer {
             }
             terminal.putString(String.valueOf(terminalRows - i - 1) + " |");
         }
+        // draw vertically axis
         int count = 0;
         for (int i = 4; i < terminalColumns; i += 3) {
             terminal.setCursorPosition(i, terminalRows);
