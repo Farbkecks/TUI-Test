@@ -11,7 +11,8 @@ public class Drawer {
     char sysmbleMain = 'O';
 
     void drawBetweenTwoPoints(Coordinate2D pointNew, Coordinate2D pointOld) throws IOException, InterruptedException {
-        if (pointNew.x >= 1 && pointNew.x <= terminalColumns / 3 - 1 && pointNew.y >= 1 && pointNew.y <= terminalRows) {
+        if (pointNew.x >= 0 && pointNew.x <= terminalColumns / 3 - 1 && pointNew.y >= 0
+                && pointNew.y <= terminalRows - 1) {
             int dx = pointNew.x - pointOld.x;
             int dy = pointNew.y - pointOld.y;
 
@@ -23,7 +24,7 @@ public class Drawer {
             double y = pointOld.y;
 
             for (int i = 0; i <= steps; i++) {
-                terminal.setCursorPosition((int) Math.round(x) * 3 + 1, terminalRows - (int) Math.round(y));
+                terminal.setCursorPosition(((int) Math.round(x) + 1) * 3 + 1, terminalRows - (int) Math.round(y) - 1);
                 terminal.putCharacter(sysmble);
                 x += xinc;
                 y += yinc;
@@ -46,16 +47,16 @@ public class Drawer {
             System.out.println();
         }
         terminalRows = size.getRows() - 4;
-        terminalColumns = size.getColumns() - 30;
+        terminalColumns = size.getColumns() - 10;
 
         for (int i = 0; i < terminalRows; i++) {
             terminal.setCursorPosition(0, i);
-            if (terminalRows - i >= 1 && terminalRows - i <= 9) {
+            if (terminalRows - i >= 0 && terminalRows - i <= 10) {
                 terminal.putCharacter(' ');
             }
-            terminal.putString(String.valueOf(terminalRows - i) + " |");
+            terminal.putString(String.valueOf(terminalRows - i - 1) + " |");
         }
-        int count = 1;
+        int count = 0;
         for (int i = 4; i < terminalColumns; i += 3) {
             terminal.setCursorPosition(i, terminalRows);
             terminal.putString(String.valueOf(count) + " ");

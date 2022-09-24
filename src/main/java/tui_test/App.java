@@ -14,8 +14,9 @@ public class App {
         graph.add(new Coordinate2D(27, 13));
         graph.add(new Coordinate2D(37, 17));
         graph.add(new Coordinate2D(44, 7));
+        graph.add(new Coordinate2D(56, 37));
         var drawer = new Drawer();
-        Coordinate2D pointOld = new Coordinate2D(1, 1);
+        Coordinate2D pointOld = new Coordinate2D(0, 0);
         for (Coordinate2D pointNew : graph) {
             drawer.drawBetweenTwoPoints(pointNew, pointOld);
             pointOld.x = pointNew.x;
