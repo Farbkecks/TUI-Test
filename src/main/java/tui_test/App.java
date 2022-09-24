@@ -20,6 +20,6 @@ public class App {
             drawer.drawBetweenTwoPoints(pointNew);
 
         }
-        drawer.print();
+        drawer.close();
     }
 }

@@ -35,9 +35,8 @@ public class Drawer {
         }
     }
 
-    void print() throws IOException {
+    void close() throws IOException {
         terminal.setCursorPosition(terminalColumns, terminalRows);
-        terminal.flush();
         System.out.println();
     }
 
