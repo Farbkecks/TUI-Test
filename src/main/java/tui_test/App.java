@@ -17,7 +17,7 @@ public class App {
         graph.add(new Coordinate2D(51, 13));
         var drawer = new Drawer();
         for (Coordinate2D pointNew : graph) {
-            drawer.drawBetweenTwoPoints(pointNew);
+            drawer.drawPoint(pointNew);
 
         }
         drawer.close();

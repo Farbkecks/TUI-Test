@@ -8,11 +8,10 @@ public class Drawer {
     int terminalRows, terminalColumns;
     Terminal terminal;
     char sysmble = 'X';
-    char sysmbleMain = 'O';
     Coordinate2D pointOld;
 
     // https://www.geeksforgeeks.org/dda-line-generation-algorithm-computer-graphics/
-    void drawBetweenTwoPoints(Coordinate2D pointNew) throws IOException, InterruptedException {
+    void drawPoint(Coordinate2D pointNew) throws IOException, InterruptedException {
         // look if the point is on the screen
         if (pointNew.x >= 0 && pointNew.x <= terminalColumns / 3 - 1 && pointNew.y >= 0
                 && pointNew.y <= terminalRows - 1) {
