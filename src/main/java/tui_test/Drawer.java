@@ -7,12 +7,11 @@ import java.io.IOException;
 public class Drawer {
     int terminalRows, terminalColumns;
     Terminal terminal;
-    char sysmble = 'X';
+    char symbols = 'X';
     Coordinate2D pointOld;
 
     // https://www.geeksforgeeks.org/dda-line-generation-algorithm-computer-graphics/
     void drawPoint(Coordinate2D pointNew) throws IOException, InterruptedException {
-        // look if the point is on the screen
         int dx = pointNew.x - pointOld.x;
         int dy = pointNew.y - pointOld.y;
 
@@ -25,10 +24,10 @@ public class Drawer {
 
         for (int i = 0; i <= steps; i++) {
             if (x >= 0 && x <= terminalColumns / 3 - 1 && y >= 0
-                    && y <= terminalRows - 1) {
+                    && y <= terminalRows - 1) { // look if the point is on the screen
                 terminal.setCursorPosition(((int) Math.round(x) + 1) * 3 + 1,
                         terminalRows - (int) Math.round(y) - 1);
-                terminal.putCharacter(sysmble);
+                terminal.putCharacter(symbols);
             }
             x += xinc;
             y += yinc;
