@@ -13,29 +13,29 @@ public class Drawer {
     // https://www.geeksforgeeks.org/dda-line-generation-algorithm-computer-graphics/
     void drawPoint(Coordinate2D pointNew) throws IOException, InterruptedException {
         // look if the point is on the screen
-        if (pointNew.x >= 0 && pointNew.x <= terminalColumns / 3 - 1 && pointNew.y >= 0
-                && pointNew.y <= terminalRows - 1) {
+        int dx = pointNew.x - pointOld.x;
+        int dy = pointNew.y - pointOld.y;
 
-            int dx = pointNew.x - pointOld.x;
-            int dy = pointNew.y - pointOld.y;
+        int steps = Math.abs(dx) > Math.abs(dy) ? Math.abs(dx) : Math.abs(dy);
+        double xinc = (double) dx / steps;
+        double yinc = (double) dy / steps;
 
-            int steps = Math.abs(dx) > Math.abs(dy) ? Math.abs(dx) : Math.abs(dy);
-            double xinc = (double) dx / steps;
-            double yinc = (double) dy / steps;
+        double x = pointOld.x;
+        double y = pointOld.y;
 
-            double x = pointOld.x;
-            double y = pointOld.y;
-
-            for (int i = 0; i <= steps; i++) {
-                terminal.setCursorPosition(((int) Math.round(x) + 1) * 3 + 1, terminalRows - (int) Math.round(y) - 1);
+        for (int i = 0; i <= steps; i++) {
+            if (x >= 0 && x <= terminalColumns / 3 - 1 && y >= 0
+                    && y <= terminalRows - 1) {
+                terminal.setCursorPosition(((int) Math.round(x) + 1) * 3 + 1,
+                        terminalRows - (int) Math.round(y) - 1);
                 terminal.putCharacter(sysmble);
-                x += xinc;
-                y += yinc;
             }
-            terminal.flush();
-            // save the old Point to draw the line
-            pointOld = pointNew;
+            x += xinc;
+            y += yinc;
         }
+        terminal.flush();
+        // save the old Point to draw the line
+        pointOld = pointNew;
     }
 
     // put cursor below the graph
